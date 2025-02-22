@@ -20,8 +20,8 @@
 
 ### 1. 클론 및 저장소 설정
 ```bash
-git clone https://github.com/yourusername/your-repo-name.git
-cd your-repo-name
+git clone https://github.com/s2ongmo/php-board.git
+cd php-board
 ```
 
 ### 2. Docker 컨테이너 실행
