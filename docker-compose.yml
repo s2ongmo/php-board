@@ -15,8 +15,8 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: board_db
-      MYSQL_USER: user
-      MYSQL_PASSWORD: user
+      MYSQL_USER: boarduser
+      MYSQL_PASSWORD: boardpass
     ports:
       - "3306:3306"
     volumes:
