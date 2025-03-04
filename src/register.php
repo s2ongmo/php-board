@@ -1,4 +1,5 @@
 <?php
+    ob_start();
     session_start();
     include 'db.php';
 
@@ -12,12 +13,19 @@
         !empty(trim($_POST['email'])) &&
         !empty(trim($_POST['password']))
     ) {
-        $login_id = trim($_POST['login_id']);
-        $nickname = trim($_POST['nickname']);
-        $email    = trim($_POST['email']);
+        $login_id = trim(mb_convert_encoding($_POST['login_id'], 'UTF-8', 'auto'));
+        $nickname = trim(mb_convert_encoding($_POST['nickname'], 'UTF-8', 'auto'));
+        $email    = trim(mb_convert_encoding($_POST['email'], 'UTF-8', 'auto'));
         $password = password_hash(trim($_POST['password']), PASSWORD_DEFAULT);
         
-        $sql = 'INSERT INTO users (login_id, nickname, email, password) VALUES: (:login_id, :nickname, :email, :password)';
+        
+        $checkStmt = $pdo->prepare("SELECT COUNT(*) FROM users WHERE login_id = :login_id");
+        $checkStmt->execute([':login_id' => $login_id]);
+        if($checkStmt->fetchColumn() > 0){
+            die("Already exist ID");
+        }
+
+        $sql = 'INSERT INTO users (login_id, nickname, email, password) VALUES (:login_id, :nickname, :email, :password)';
         $stmt = $pdo->prepare($sql);
 
         try{
@@ -35,6 +43,9 @@
     } else {
         // 값이 없거나 일부가 비어있을 경우, 입력 폼을 출력
         ?>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta charset="UTF-8">
+        <title>register</title>
         <form method="POST" action="">
             <label for="login_id">ID:</label>
             <input type="text" id="login_id" name="login_id" required><br><br>
@@ -53,4 +64,5 @@
         </form>
         <?php
     }
+    ob_end_flush();
 ?>

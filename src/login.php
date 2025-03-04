@@ -6,8 +6,8 @@ $errorMessage = '';
 
 // POST 요청인 경우만 처리
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $login_id = trim(filter_input(INPUT_POST, 'login_id', FILTER_SANITIZE_STRING));
-    $password = trim(filter_input(INPUT_POST, 'password', FILTER_SANITIZE_STRING));
+    $login_id = trim(filter_input(INPUT_POST, 'login_id', FILTER_SANITIZE_SPECIAL_CHARS));
+    $password = trim(filter_input(INPUT_POST, 'password', FILTER_SANITIZE_SPECIAL_CHARS));
     
     // 필수 항목 누락 시 에러 메시지 설정
     if (empty($login_id) || empty($password)) {
@@ -34,7 +34,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <title>로그인</title>
+    <title>login</title>
 </head>
 <body>
     <h1>로그인</h1>

@@ -3,7 +3,7 @@
     include 'db.php';    
     $username = $_SESSION['username'];
     if(isset($_SESSION['login_id'])){
-        echo $username . '님 환영합니다';
+        echo 'Welcome to world' . $username;
     }
     else {
         echo '<a href="login.php">로그인</a>';
@@ -17,6 +17,13 @@
     $stmt = $pdo->query($sql);
 
 ?>
+    <!DOCTYPE html>
+    <meta charset="UTF-8">
+    <title>index</title>
+    <h1>board</h1>
+    <a href="write.php">글쓰기</a>
+    <a href="logout.php">로그아웃</a>
+    <a href="register.php">회원가입</a>
     <table border="1" cellspacing="0" cellpading="8">
         <tr>
             <th>제목</th>

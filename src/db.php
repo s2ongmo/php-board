@@ -16,6 +16,7 @@ $options = [
 
 try {
     $pdo = new PDO($dsn, $user, $pass, $options);
+    $pdo->exec("SET NAMES utf8mb4");
 } catch (PDOException $e) {
     // 연결 실패 시 에러 메시지 출력
     die("데이터베이스 연결 실패: " . $e->getMessage());
