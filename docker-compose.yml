@@ -4,9 +4,9 @@ services:
   web:
     build: .
     ports:
-      - "8080:80"       # 호스트의 8080 포트를 컨테이너의 80 포트와 연결
+      - "8080:80"
     volumes:
-      - ./src:/var/www/html   # 코드 변경 시 자동 반영
+      - ./src:/var/www/html
     depends_on:
       - db
 
@@ -21,8 +21,8 @@ services:
       - "3306:3306"
     volumes:
       - db_data:/var/lib/mysql
-      # 초기 스크립트 실행을 원한다면 아래와 같이 마운트할 수 있음
       - ./sql/init.sql:/docker-entrypoint-initdb.d/init.sql
+      - ./mysql/my.cnf:/etc/mysql-conf/my.cnf
 
 volumes:
   db_data:

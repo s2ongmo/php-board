@@ -6,14 +6,14 @@ $errorMessage = '';
 
 // POST 요청인 경우만 처리
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $login_id = trim(filter_input(INPUT_POST, 'login_id', FILTER_SANITIZE_SPECIAL_CHARS));
-    $password = trim(filter_input(INPUT_POST, 'password', FILTER_SANITIZE_SPECIAL_CHARS));
+    $login_id = htmlspecialchars(trim($_POST['login_id']));
+    $password = htmlspecialchars(trim($_POST['password']));
     
     // 필수 항목 누락 시 에러 메시지 설정
     if (empty($login_id) || empty($password)) {
         $errorMessage = '<p style="color:red;">login error!</p>';
     } else {
-        $sql = 'SELECT login_id, password FROM users WHERE login_id = :login_id';
+        $sql = 'SELECT login_id, password, nickname FROM users WHERE login_id = :login_id';
         $stmt = $pdo->prepare($sql);
         $stmt->execute([':login_id' => $login_id]);
         $user = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -21,6 +21,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // 사용자 정보가 존재하고, 비밀번호 검증 성공 시
         if ($user && password_verify($password, $user['password'])) {
             $_SESSION['login_id'] = $login_id;
+            $_SESSION['nickname'] = htmlspecialchars(trim($user['nickname']));
+            
+
             header('Location: index.php');
             exit;
         } else {

@@ -1,12 +1,15 @@
 <?php
     session_start();
-    include 'db.php';    
-    $username = $_SESSION['username'];
+    include 'db.php';
+    $nickname = $_SESSION['nickname'];
     if(isset($_SESSION['login_id'])){
-        echo 'Welcome to world' . $username;
+        echo 'Welcome to world ' . $nickname;
+        echo '<a href="logout.php">로그아웃</a>';
     }
     else {
         echo '<a href="login.php">로그인</a>';
+        echo '<a href="register.php">회원가입</a>';
+
     }
     
     $sql = 'SELECT posts.*, users.nickname
@@ -20,10 +23,9 @@
     <!DOCTYPE html>
     <meta charset="UTF-8">
     <title>index</title>
-    <h1>board</h1>
+    <h1>Board</h1>
     <a href="write.php">글쓰기</a>
-    <a href="logout.php">로그아웃</a>
-    <a href="register.php">회원가입</a>
+    
     <table border="1" cellspacing="0" cellpading="8">
         <tr>
             <th>제목</th>

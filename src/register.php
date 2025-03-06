@@ -3,7 +3,7 @@
     session_start();
     include 'db.php';
 
-    echo '<h1>회원가입</h1>';
+    echo '<h1>register</h1>';
 
     // POST 방식으로 전달된 필수 필드가 모두 존재하고, 비어있지 않은지 검사
     if (
