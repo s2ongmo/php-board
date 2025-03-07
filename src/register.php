@@ -48,11 +48,11 @@
         <title>register</title>
         <form method="POST" action="">
             <label for="login_id">ID:</label>
-            <input type="text" id="login_id" name="login_id" required><br><br>
-
+            <input type="text" id="login_id" name="login_id" required>
+            <br><br>
             <label for="nickname">Name:</label>
-            <input type="text" id="nickname" name="nickname" required><br><br>
-
+            <input type="text" id="nickname" name="nickname" required>
+            <br><br>
             <label for="email">Email:</label>
             <input type="email" id="email" name="email" required><br><br>
 
