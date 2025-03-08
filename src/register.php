@@ -48,14 +48,14 @@
         <title>register</title>
         <form method="POST" action="">
             <label for="login_id">ID:</label>
-            <input type="text" id="login_id" name="login_id" required>
+            <input type="text" id="login_id" name="login_id" pattern="[a-zA-Z0-9]+" required>
             <br><br>
             <label for="nickname">Name:</label>
-            <input type="text" id="nickname" name="nickname" required>
+            <input type="text" id="nickname" name="nickname" pattern="[a-zA-Z0-9가-힣!@#_\-]+" required>
             <br><br>
             <label for="email">Email:</label>
             <input type="email" id="email" name="email" required><br><br>
-
+            
             <label for="password">PW:</label>
             <input type="password" id="password" name="password" required><br><br>
             

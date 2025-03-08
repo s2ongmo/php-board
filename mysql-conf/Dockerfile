@@ -6,3 +6,5 @@ COPY my.cnf /etc/mysql/my.cnf
 # 권한과 소유자 설정 (리눅스 파일시스템 상에서 동작)
 RUN chown root:root /etc/mysql/my.cnf && \
     chmod 644 /etc/mysql/my.cnf
+
+RUN yum install net-tools
