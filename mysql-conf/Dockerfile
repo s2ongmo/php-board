@@ -7,4 +7,4 @@ COPY my.cnf /etc/mysql/my.cnf
 RUN chown root:root /etc/mysql/my.cnf && \
     chmod 644 /etc/mysql/my.cnf
 
-RUN yum install net-tools
+RUN yum install -y net-tools

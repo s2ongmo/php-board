@@ -3,7 +3,7 @@
     include 'db.php';
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST'){
-        if (isset($_POST['title']) && isset($_POST['content'])){
+        if ($_POST['title'] !== '' && $_POST['content'] !== ''){
             $title = htmlspecialchars($_POST['title']);
             $content = htmlspecialchars($_POST['content']);
             $nickname = $_SESSION['nickname'];

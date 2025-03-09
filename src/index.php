@@ -36,6 +36,7 @@
             <th>title</th>
             <th>writer</th>
             <th>date</th>
+            <th>views</th>
         </tr>
     
 <?php
@@ -46,19 +47,19 @@
         $title = htmlspecialchars($row['title']);
         $writer = htmlspecialchars($row['writer']);
         $created_at = $row['created_at'];
-        
+        $views = $row['view_count'];
         if (date('Y-m-d', strtotime($created_at)) === date('Y-m-d')) {
             $displayDate = date('H:i', strtotime($created_at));
         } else {
             $displayDate = date('Y-m-d', strtotime($created_at));
         }
-        $_SESSION['displayDate'] = $displayDate;
 
         echo "<tr onclick=\"window.location.href='view.php?id={$row['id']}'\" style='cursor:pointer;'>";
         echo "<td>" . $totalPosts-- . "</td>";
         echo "<td>{$title}</td>";
         echo "<td>{$writer}</td>";
         echo "<td>{$displayDate}</td>";
+        echo "<td>{$views}</td>";
         echo "</tr>";
         
         $counter++;
