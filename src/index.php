@@ -11,14 +11,18 @@
         echo '<a href="register.php">회원가입</a>';
 
     }
-    
-    $sql = 'SELECT posts.*, users.nickname
+    $totalSql = "SELECT COUNT(*) FROM posts WHERE deleted_at IS NULL";
+    $totalStmt = $pdo->query($totalSql);
+    $totalPosts = $totalStmt->fetchColumn();
+
+    $sql = 'SELECT posts.*
             FROM posts 
-            JOIN users ON posts.writer = users.id
             WHERE posts.deleted_at IS NULL 
             ORDER BY posts.created_at DESC';
+    
     $stmt = $pdo->query($sql);
-
+    
+    
 ?>
     <!DOCTYPE html>
     <meta charset="UTF-8">
@@ -28,29 +32,36 @@
     
     <table border="1" cellspacing="0" cellpading="8">
         <tr>
-            <th>제목</th>
-            <th>작성자</th>
-            <th>날짜</th>
+            <th>no.</th>
+            <th>title</th>
+            <th>writer</th>
+            <th>date</th>
         </tr>
     
 <?php
-    // $stmt == iterator 
+    $counter = 1;
+    // $stmt == iterator
     while ($row = $stmt->fetch()){
+        
         $title = htmlspecialchars($row['title']);
         $writer = htmlspecialchars($row['writer']);
         $created_at = $row['created_at'];
         
         if (date('Y-m-d', strtotime($created_at)) === date('Y-m-d')) {
-            $displayDate = date('H:i:s', strtotime($created_at));
+            $displayDate = date('H:i', strtotime($created_at));
         } else {
             $displayDate = date('Y-m-d', strtotime($created_at));
         }
-        
-        echo "<tr>";
+        $_SESSION['displayDate'] = $displayDate;
+
+        echo "<tr onclick=\"window.location.href='view.php?id={$row['id']}'\" style='cursor:pointer;'>";
+        echo "<td>" . $totalPosts-- . "</td>";
         echo "<td>{$title}</td>";
-        echo "<td>{$nickname}</td>";
+        echo "<td>{$writer}</td>";
         echo "<td>{$displayDate}</td>";
         echo "</tr>";
+        
+        $counter++;
     }
 ?>
 </table>

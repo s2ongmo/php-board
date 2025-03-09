@@ -48,16 +48,16 @@
         <title>register</title>
         <form method="POST" action="">
             <label for="login_id">ID:</label>
-            <input type="text" id="login_id" name="login_id" pattern="[a-zA-Z0-9]+" required>
+            <input type="text" id="login_id" name="login_id" pattern="[a-zA-Z0-9]+" maxlength="20" required>
             <br><br>
             <label for="nickname">Name:</label>
-            <input type="text" id="nickname" name="nickname" pattern="[a-zA-Z0-9가-힣!@#_\-]+" required>
+            <input type="text" id="nickname" name="nickname" pattern="[a-zA-Z0-9가-힣!@#_\-]+" maxlength="20" required>
             <br><br>
             <label for="email">Email:</label>
-            <input type="email" id="email" name="email" required><br><br>
-            
+            <input type="email" id="email" name="email" maxlength="40" required><br><br>
+
             <label for="password">PW:</label>
-            <input type="password" id="password" name="password" required><br><br>
+            <input type="password" id="password" name="password" maxlength="40" required><br><br>
             
             <input type="submit" value="회원가입">
             <input type="button" onclick="location.href='login.php';" value="로그인">
