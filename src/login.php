@@ -22,8 +22,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if ($user && password_verify($password, $user['password'])) {
             $_SESSION['login_id'] = $login_id;
             $_SESSION['nickname'] = htmlspecialchars(trim($user['nickname']));
-            
-
             header('Location: index.php');
             exit;
         } else {
