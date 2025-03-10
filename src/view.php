@@ -7,10 +7,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         $id = $_GET['id'];
         // posts의 writer(닉네임)와 users.nickname을 기준으로 JOIN하여
         // 해당 사용자의 고유 id(user_id)를 가져옵니다.
-        $sql = 'SELECT p.*, u.id AS user_id 
-                FROM posts p 
-                JOIN users u ON p.writer = u.nickname 
+        $sql = 'SELECT p.*, u.nickname,
+                FROM posts p
+                JOIN users u ON p.writer = u.login_id
                 WHERE p.id = :id';
+
         $stmt = $pdo->prepare($sql);
         $stmt->execute([':id' => $id]);
         $post = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -35,7 +36,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     echo '<p>조회수: ' . htmlspecialchars($post['view_count']) . '</p>';
 
     // 로그인 시 세션에 저장된 user_id와 JOIN으로 가져온 user_id를 비교
-    if (isset($_SESSION['user_id']) && $_SESSION['user_id'] == $post['user_id']) {
+    if (isset($_SESSION['user_id']) && $_SESSION['user_id'] == $post['writer']) {
         echo '<form action="delete.php" method="post">';
         echo '<input type="hidden" name="id" value="' . htmlspecialchars($post['id']) . '">';
         echo '<button type="submit">글 삭제</button>';

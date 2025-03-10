@@ -9,45 +9,42 @@
     else {
         echo '<a href="login.php">로그인</a>';
         echo '<a href="register.php">회원가입</a>';
-
     }
     $totalSql = "SELECT COUNT(*) FROM posts WHERE deleted_at IS NULL";
     $totalStmt = $pdo->query($totalSql);
     $totalPosts = $totalStmt->fetchColumn();
 
-    $sql = 'SELECT posts.*
-            FROM posts 
-            WHERE posts.deleted_at IS NULL 
-            ORDER BY posts.created_at DESC';
-    
+    $sql = 'SELECT p.*, u.nickname as writer
+            FROM posts p
+            JOIN users u ON p.writer = u.login_id
+            WHERE p.deleted_at IS NULL
+            ORDER BY p.created_at DESC';
     $stmt = $pdo->query($sql);
-    
-    
 ?>
-    <!DOCTYPE html>
-    <meta charset="UTF-8">
-    <title>index</title>
-    <h1>Board</h1>
-    <a href="write.php">글쓰기</a>
-    
-    <table border="1" cellspacing="0" cellpading="8">
-        <tr>
-            <th>no.</th>
-            <th>title</th>
-            <th>writer</th>
-            <th>date</th>
-            <th>views</th>
-        </tr>
-    
+<!DOCTYPE html>
+<meta charset="UTF-8">
+<title>index</title>
+<h1>Board</h1>
+<a href="write.php">글쓰기</a>
+
+<table border="1" cellspacing="0" cellpadding="8">
+    <tr>
+        <th>no.</th>
+        <th>title</th>
+        <th>writer</th>
+        <th>date</th>
+        <th>views</th>
+    </tr>
+
 <?php
     $counter = 1;
-    // $stmt == iterator
     while ($row = $stmt->fetch()){
         
         $title = htmlspecialchars($row['title']);
-        $writer = htmlspecialchars($row['writer']);
+        $writer = htmlspecialchars($row['writer']); // 닉네임 출력
         $created_at = $row['created_at'];
         $views = $row['view_count'];
+        
         if (date('Y-m-d', strtotime($created_at)) === date('Y-m-d')) {
             $displayDate = date('H:i', strtotime($created_at));
         } else {
@@ -66,4 +63,3 @@
     }
 ?>
 </table>
-    
