@@ -14,7 +14,7 @@
     $totalStmt = $pdo->query($totalSql);
     $totalPosts = $totalStmt->fetchColumn();
 
-    $sql = 'SELECT p.*, u.nickname as writer
+    $sql = 'SELECT p.*, u.nickname
             FROM posts p
             JOIN users u ON p.writer = u.login_id
             WHERE p.deleted_at IS NULL
@@ -39,18 +39,26 @@
 <?php
     $counter = 1;
     while ($row = $stmt->fetch()){
-        
         $title = htmlspecialchars($row['title']);
-        $writer = htmlspecialchars($row['writer']); // 닉네임 출력
+        $writer = htmlspecialchars($row['nickname']);
         $created_at = $row['created_at'];
         $views = $row['view_count'];
-        
-        if (date('Y-m-d', strtotime($created_at)) === date('Y-m-d')) {
-            $displayDate = date('H:i', strtotime($created_at));
+
+        // date 처리
+        $createdTimestamp = strtotime($row['created_at']);
+        $currentTimestamp = time();
+        if (date('Y', $createdTimestamp) !== date('Y', $currentTimestamp)) {
+            // 연도가 다르면 "년도:월:일"
+            $displayDate = date('Y:m:d', $createdTimestamp);
+        } elseif (date('Y-m-d', $createdTimestamp) === date('Y-m-d', $currentTimestamp)) {
+            // 작성 날짜가 오늘과 같다면 "시:분"
+            $displayDate = date('H:i', $createdTimestamp);
         } else {
-            $displayDate = date('Y-m-d', strtotime($created_at));
+            // 연도는 같지만 날짜가 다르면 "월:일"
+            $displayDate = date('m:d', $createdTimestamp);
         }
 
+        // 게시물 출력
         echo "<tr onclick=\"window.location.href='view.php?id={$row['id']}'\" style='cursor:pointer;'>";
         echo "<td>" . $totalPosts-- . "</td>";
         echo "<td>{$title}</td>";
