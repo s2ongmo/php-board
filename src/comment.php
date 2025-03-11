@@ -19,9 +19,9 @@ $post_id = (int) $_POST['post_id'];
 
 // 로그인 상태 검증 및 세션에서 user_id 가져오기
 if (!isset($_SESSION['login_id']) || empty($_SESSION['login_id'])) {
-    die('ERROR: 로그인 후 이용해 주세요.');
+    die('ERROR: Login required');
 }
-$user_id = $_POST['user_id'];
+$user_id = $_SESSION['user_id'];
 
 // 댓글 내용 처리
 $content = htmlspecialchars(trim($_POST['content']));

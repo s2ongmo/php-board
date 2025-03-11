@@ -13,13 +13,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (empty($login_id) || empty($password)) {
         $errorMessage = '<p style="color:red;">login error!</p>';
     } else {
-        $sql = 'SELECT login_id, password, nickname FROM users WHERE login_id = :login_id';
+        $sql = 'SELECT * FROM users WHERE login_id = :login_id';
         $stmt = $pdo->prepare($sql);
         $stmt->execute([':login_id' => $login_id]);
         $user = $stmt->fetch(PDO::FETCH_ASSOC);
         
         // 사용자 정보가 존재하고, 비밀번호 검증 성공 시
         if ($user && password_verify($password, $user['password'])) {
+            $_SESSION['user_id'] = $user['id'];
             $_SESSION['login_id'] = $login_id;
             $_SESSION['nickname'] = htmlspecialchars(trim($user['nickname']));
             header('Location: index.php');

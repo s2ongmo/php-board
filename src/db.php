@@ -1,4 +1,6 @@
 <?php
+date_default_timezone_set('Asia/Seoul');  // 한국 시간대 설정
+
 // 데이터베이스 연결 정보 설정
 $host    = '172.18.0.2'; // docker-db IP
 $dbname  = 'board_db';
