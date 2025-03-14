@@ -37,6 +37,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         $displayDate = date('Y-m-d', strtotime($post['created_at']));
     }
 
+    // 내용출력
     echo '<h1>' . htmlspecialchars($post['title']) . '</h1>';
     echo '<p>' . nl2br(htmlspecialchars($post['content'])) . '</p>';
     echo '<p>작성자: ' . htmlspecialchars($post['nickname']) . '</p>';

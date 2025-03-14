@@ -49,13 +49,13 @@
         $currentTimestamp = time();
         if (date('Y', $createdTimestamp) !== date('Y', $currentTimestamp)) {
             // 연도가 다르면 "년도:월:일"
-            $displayDate = date('Y:m:d', $createdTimestamp);
+            $displayDate = date('Y-m-d', $createdTimestamp);
         } elseif (date('Y-m-d', $createdTimestamp) === date('Y-m-d', $currentTimestamp)) {
             // 작성 날짜가 오늘과 같다면 "시:분"
             $displayDate = date('H:i', $createdTimestamp);
         } else {
             // 연도는 같지만 날짜가 다르면 "월:일"
-            $displayDate = date('m:d', $createdTimestamp);
+            $displayDate = date('m/d', $createdTimestamp);
         }
 
         // 게시물 출력
