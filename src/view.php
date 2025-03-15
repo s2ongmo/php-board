@@ -15,9 +15,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         }
 
         // p.writer(게시글 작성자, 실제로는 users.login_id 값)와 u.nickname, u.id(사용자 고유번호) 모두 가져옴
-        $sql = 'SELECT p.*, u.nickname, p.writer 
+        $sql = 'SELECT p.*, u.nickname, u.id as user_id, f.file_path
                 FROM posts p
                 JOIN users u ON p.writer = u.login_id
+                LEFT JOIN files f ON p.id = f.post_id
                 WHERE p.id = :id';
 
         $stmt = $pdo->prepare($sql);
@@ -40,6 +41,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     // 내용출력
     echo '<h1>' . htmlspecialchars($post['title']) . '</h1>';
     echo '<p>' . nl2br(htmlspecialchars($post['content'])) . '</p>';
+    if ($post['file_path']){
+        echo '<img src="' . $post['file_path'] . '" width="400px" alt="첨부파일">'; // 이미지 출력
+    }
     echo '<p>작성자: ' . htmlspecialchars($post['nickname']) . '</p>';
     echo '<p>작성일: ' . $displayDate . '</p>';
     echo '<p>조회수: ' . htmlspecialchars($post['view_count']) . '</p>';
