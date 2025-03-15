@@ -89,9 +89,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
     exit;
 }
 ?>
-<form method="POST" action="" enctype="multipart/form-data">
-    <input type="text" name="title" id="title"><br>
-    <textarea name="content" id="content"></textarea><br>
-    <input type="file" name="file" id="file"><br>
-    <input type="submit" value="submit">
-</form>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Write</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>글 작성</h1>
+        <form method="POST" action="" enctype="multipart/form-data">
+            <input type="text" name="title" id="title" placeholder="제목"><br>
+            <textarea name="content" id="content" placeholder="내용"></textarea><br>
+            <input type="file" name="file" id="file"><br>
+            <input type="submit" value="작성">
+        </form>
+        <a href="index.php">돌아가기</a>
+    </div>
+</body>
+</html>
